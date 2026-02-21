@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 214 32% 91%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 217 91% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 217 91% 60%;
+
+    --radius: 0.75rem;
+
+    /* Custom Guardian Alert tokens */
+    --guardian-blue: 217 91% 60%;
+    --guardian-blue-light: 217 91% 95%;
+    --guardian-success: 142 76% 36%;
+    --guardian-success-light: 142 76% 95%;
+    
+    /* Emergency alert colors */
+    --emergency-red: 0 84% 50%;
+    --emergency-yellow: 45 96% 56%;
+  }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 213 27% 84%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    height: 100%;
+    height: -webkit-fill-available;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    min-height: 100%;
+    min-height: 100dvh;
+    min-height: -webkit-fill-available;
+  }
+
+  #root {
+    min-height: 100%;
+    min-height: 100dvh;
+  }
+}
+
+@layer utilities {
+  .guardian-container {
+    @apply min-h-screen flex flex-col px-6 py-8;
+  }
+
+  .guardian-heading {
+    @apply text-3xl font-bold text-foreground tracking-tight;
+  }
+
+  .guardian-subtext {
+    @apply text-muted-foreground text-base;
+  }
+
+  /* Safe area for bottom navigation on iOS */
+  .pb-safe {
+    padding-bottom: max(env(safe-area-inset-bottom), 0px);
+  }
+}
+
+/* Toast auto-dismiss timing */
+[data-sonner-toast] {
+  --toast-duration: 3000ms;
+}
+
+/* Smooth alert transitions */
+.alert-overlay {
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.alert-fade-out {
+  animation: fadeOut 0.2s ease-out forwards;
+}
+
+@keyframes emergency-flash {
+  0%, 100% {
+    background-color: hsl(var(--emergency-red));
+  }
+  50% {
+    background-color: hsl(var(--emergency-yellow));
+  }
+}
+
+.animate-emergency-flash {
+  animation: emergency-flash 0.5s ease-in-out infinite;
+}
