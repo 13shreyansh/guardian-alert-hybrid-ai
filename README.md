@@ -179,8 +179,11 @@ Query → FunctionGemma (on-device, ~40ms)
 
 - Python 3.10+
 - Node.js 18+
-- [Cactus Compute](https://cactuscompute.com) engine + FunctionGemma weights
-- Gemini API key (for cloud fallback)
+- [Cactus Compute](https://github.com/nicholasgasior/cactus) engine installed separately (provides on-device FunctionGemma inference)
+- FunctionGemma-270M-IT model weights (downloaded via Cactus CLI)
+- Gemini API key (for cloud fallback only)
+
+> **Note:** If Cactus Compute is not installed, the server automatically runs in fallback mode with simulated AI responses. The full hybrid AI pipeline requires the Cactus engine to be installed separately.
 
 ### Backend (AI Server)
 
