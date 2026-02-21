@@ -26,7 +26,7 @@
   </a>
 </p>
 
-<p align="center"><em>2-minute pitch + live demonstration of Guardian Alert detecting fire alarms and alerting caregivers in real time.</em></p>
+<p align="center"><em>Watch our YouTube video here — live demonstration of Guardian Alert detecting fire alarms and alerting caregivers in real time.</em></p>
 
 ---
 
