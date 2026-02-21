@@ -29,6 +29,11 @@ const HowItWorks = () => {
       description: "AI continuously monitors for natural disasters and emergency sounds"
     },
     {
+      icon: "🧠",
+      title: "On-Device AI",
+      description: "Google's FunctionGemma-270M-IT runs locally via Cactus Compute — fast, private, no internet needed"
+    },
+    {
       icon: "⚡",
       title: "Instant Alerts",
       description: "Personalized alerts in visual, audio, or haptic format based on your needs"

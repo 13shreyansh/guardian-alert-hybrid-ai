@@ -466,6 +466,13 @@ const Home = () => {
           </div>
         </main>
 
+        {/* Powered by badge */}
+        <div className="flex justify-center py-2">
+          <span className="text-[10px] text-muted-foreground/60">
+            Powered by Cactus Compute &amp; FunctionGemma
+          </span>
+        </div>
+
         {/* Bottom Navigation */}
         <BottomNav />
       </div>

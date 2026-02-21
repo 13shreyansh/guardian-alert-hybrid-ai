@@ -412,7 +412,7 @@ const Settings = () => {
               </button>
 
               <p className="text-xs text-muted-foreground text-center pt-2 border-t border-border">
-                Built for INTUition 2026
+                Built for Google DeepMind x Cactus Compute Hackathon 2026
               </p>
             </CardContent>
           </Card>
@@ -449,6 +449,12 @@ const Settings = () => {
                 <h4 className="font-semibold mb-1">📱 SMS Notifications</h4>
                 <p className="text-muted-foreground">
                   When danger is detected, your emergency contacts receive an immediate SMS with your location.
+                </p>
+              </div>
+              <div>
+                <h4 className="font-semibold mb-1">🧠 Hybrid AI Engine</h4>
+                <p className="text-muted-foreground">
+                  Powered by Google's FunctionGemma-270M-IT running on-device via Cactus Compute, with Gemini cloud fallback for maximum accuracy.
                 </p>
               </div>
               <div>
