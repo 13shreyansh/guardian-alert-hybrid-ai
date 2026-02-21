@@ -106,9 +106,9 @@ This is just the beginning. Our roadmap includes:
 
 ---
 
-## Built For INTUition 2026
+## Built For Google DeepMind x Cactus Compute Hackathon 2026
 
-Guardian Alert was created during the INTUition 2026 hackathon with a single mission: **ensure that in a crisis, no one is left behind.**
+Guardian Alert was created during the Google DeepMind x Cactus Compute Hackathon 2026 with a single mission: **ensure that in a crisis, no one is left behind.**
 
 We believe technology should serve everyone, not just those who fit the "default" user profile. Accessibility isn't a feature—it's a fundamental human right.
 

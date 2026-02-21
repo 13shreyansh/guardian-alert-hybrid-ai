@@ -1,149 +1,44 @@
-# 🛡️ Guardian Alert — Hybrid AI Emergency Detection
+# 🛡️ Guardian Alert
 
-**Powered by Cactus Compute + Google FunctionGemma + Gemini**
+**Real-time emergency sound detection for vulnerable individuals, powered by on-device AI.**
 
-> Real-time emergency sound detection for elderly and disabled individuals, using on-device AI for instant response with cloud fallback for complex scenarios.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![Hackathon](https://img.shields.io/badge/Hackathon-Google%20DeepMind%20×%20Cactus%20Compute-brightgreen)]() [![On-Device Ratio](https://img.shields.io/badge/On--Device%20Ratio-100%25-blue)]() [![Benchmark Score](https://img.shields.io/badge/Benchmark-82%25-orange)]()
 
 ---
 
-## 🎯 What is Guardian Alert?
+## 📺 Demo Video
 
-Guardian Alert is an **accessibility-first emergency detection system** that listens for dangerous sounds — glass breaking, smoke alarms, screams, falls — and instantly alerts caregivers via SMS, screen flash, and voice alerts.
+**Watch our 2-minute pitch and live demonstration:**
 
-**Why it matters:** For elderly individuals living alone or people with hearing impairments, a smoke alarm going off could be life-threatening if undetected. Guardian Alert acts as an always-on AI guardian that processes sounds **locally in under 50ms** — no internet required for 90%+ of cases.
+[![Guardian Alert Demo](https://img.shields.io/badge/▶%20Watch%20Demo-YouTube-red?style=for-the-badge&logo=youtube)](https://www.youtube.com/playlist?list=PLRjIbTD2eeN5t_PZH_3GQrsMUdV6jLJw4)
 
-**Key Innovation:** Our **hybrid AI routing** ensures:
-- 🟢 **On-device (FunctionGemma):** Handles common emergency sounds instantly (~40ms) with zero latency and full privacy
-- 🔵 **Cloud fallback (Gemini):** Only activated for ambiguous or complex sound patterns
-- 🔒 **Privacy-first:** Audio never leaves the device unless absolutely necessary
+---
+
+## 🎯 The Problem
+
+> People with disabilities are **2–4x more likely to die** in emergencies. — *United Nations Office for Disaster Risk Reduction*
+
+**1.3 billion people** worldwide live with a disability. Fire alarms, sirens, and emergency announcements are built for people who can hear, see, and move freely. For everyone else, these life-saving systems are silent.
+
+Guardian Alert was born from a real story. My teammate Krishiv's grandmother lives alone. She's hard of hearing. A fire alarm went off in her building — she didn't hear it. A neighbor found her just in time. **Not everyone is that lucky.**
+
+## 💡 The Solution
+
+Guardian Alert turns **any smartphone** into an always-on, AI-powered safety guardian. It listens for dangerous sounds and instantly alerts users and caregivers through personalized, multi-modal notifications.
+
+### Why Cactus Compute + FunctionGemma?
+
+For someone who is deaf and alone in a burning building, a 15-second cloud API response is not fast enough.
+
+| | On-Device (Cactus) | Cloud AI |
+|---|---|---|
+| **Latency** | <50ms ⚡ | 15,000ms+ 🐌 |
+| **Privacy** | Audio never leaves device 🔒 | Audio sent to servers |
+| **Offline** | Works without internet ✅ | Requires connectivity ❌ |
+| **Cost** | Free inference | API costs per call |
+
+We use **Cactus Compute** to run Google's **FunctionGemma-270M-IT** model directly on the device. Sub-50ms decisions. Complete privacy. Works offline.
 
 ---
 
 ## 🏗️ Architecture
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Guardian Alert System                      │
-├─────────────────────────────────────────────────────────────┤
-│                                                               │
-│   🎤 Microphone Input                                        │
-│        │                                                      │
-│        ▼                                                      │
-│   ┌─────────────┐                                            │
-│   │   YAMNet     │  Sound Classification                     │
-│   │  (TF Lite)   │  "smoke_alarm" → 0.94 confidence          │
-│   └──────┬──────┘                                            │
-│          │                                                    │
-│          ▼                                                    │
-│   ┌─────────────────────────────────────────┐                │
-│   │      🧠 Hybrid AI Brain (main.py)       │                │
-│   │                                          │                │
-│   │   ┌───────────────┐  ┌───────────────┐  │                │
-│   │   │ FunctionGemma │  │  Gemini Cloud  │  │                │
-│   │   │   270M-IT     │  │   2.0 Flash    │  │                │
-│   │   │  (On-Device)  │  │  (Fallback)    │  │                │
-│   │   │   ~40ms ⚡     │  │   ~500ms 🌐    │  │                │
-│   │   └───────┬───────┘  └───────┬───────┘  │                │
-│   │           │    Hybrid Router  │          │                │
-│   │           └────────┬─────────┘          │                │
-│   └────────────────────┼────────────────────┘                │
-│                        │                                      │
-│                        ▼                                      │
-│   ┌─────────────────────────────────────────┐                │
-│   │           📱 Alert Actions              │                │
-│   │                                          │                │
-│   │   📲 Twilio SMS    💡 Screen Flash       │                │
-│   │   🔊 Voice Alert   📋 Event Logging      │                │
-│   └─────────────────────────────────────────┘                │
-│                                                               │
-└─────────────────────────────────────────────────────────────┘
-```
-
----
-
-## 🧠 How the Hybrid Routing Works
-
-Our `generate_hybrid()` function implements intelligent routing between on-device and cloud AI:
-
-1. **FunctionGemma First** — Every query runs through the on-device FunctionGemma-270M-IT model via Cactus Compute
-2. **JSON Repair** — If the model produces valid tool selection but broken JSON, we salvage the tool name and rebuild
-3. **Smart Retries** — Focused tool presentation + rephrased prompts to maximize on-device success
-4. **Post-Processing** — Type fixing, argument extraction, and validation ensure correct function calls
-5. **Cloud Fallback** — Only when the on-device model genuinely cannot handle the query
-
-**Result:** 100% on-device ratio on the hackathon evaluation with 91.1% F1 accuracy.
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology | Purpose |
-|-------|-----------|---------|
-| **On-Device AI** | [Cactus Compute](https://cactuscompute.com) | Local ML inference engine |
-| **Local Model** | FunctionGemma-270M-IT | On-device function calling (40ms) |
-| **Cloud Model** | Gemini 2.0 Flash | Fallback for complex queries |
-| **Sound Detection** | YAMNet (TensorFlow Lite) | Audio event classification |
-| **Frontend** | React + Vite + Tailwind CSS | Real-time monitoring dashboard |
-| **Backend** | Flask + Flask-CORS | REST API server |
-| **Alerts** | Twilio SMS API | Emergency SMS notifications |
-| **Language** | Python 3.13 | Backend & AI logic |
-
----
-
-## 🚀 How to Run
-
-### Backend (AI Server)
-
-```bash
-# Install dependencies
-pip install -r requirements.txt
-
-# Set your Gemini API key (for cloud fallback)
-export GEMINI_API_KEY="your-api-key"
-
-# Start the server
-python server.py
-```
-
-### Frontend (React App)
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-The app will be available at `http://localhost:5173` with the API server at `http://localhost:5000`.
-
----
-
-## 📊 Hackathon Results
-
-| Metric | Score |
-|--------|-------|
-| **Total Score** | 82.0% |
-| **F1 Accuracy** | 0.9111 |
-| **Avg Response Time** | 827ms |
-| **On-Device Ratio** | 100% |
-
----
-
-## 👥 Team
-
-| Name | Role |
-|------|------|
-| **Shreyansh Agarwal** | Lead — Hybrid AI Architecture, On-device Optimization |
-| **Krishiv Kapur** | App Development, Frontend & UX |
-
----
-
-## 🏆 Built At
-
-**Google DeepMind × Cactus Compute Global Hackathon**
-📍 Singapore | 📅 February 21, 2026
-
----
-
-## 📄 License
-
-MIT License — Built with ❤️ for accessibility

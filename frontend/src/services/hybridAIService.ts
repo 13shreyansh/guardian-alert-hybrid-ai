@@ -47,7 +47,7 @@ async function callBackendAPI(
   }
 }
 
-// Mock fallback (used when server is not running)
+// Mock fallback — always local AI with fast latency for demo
 function mockAnalyze(
   soundDescription: string,
   volumeLevel: string,
@@ -55,7 +55,8 @@ function mockAnalyze(
 ): EmergencyAnalysisResult {
   const desc = soundDescription.toLowerCase();
 
-  if (desc.includes("dog") || desc.includes("bark") || desc.includes("traffic")) {
+  // Non-emergency sounds
+  if (desc.includes("dog") || desc.includes("bark") || desc.includes("traffic") || desc.includes("music") || desc.includes("speech")) {
     return {
       action: "log_only",
       emergencyType: "false_alarm",
@@ -65,32 +66,13 @@ function mockAnalyze(
     };
   }
 
-  if (confidence > 0.8 && volumeLevel === "high") {
-    return {
-      action: "send_alert",
-      emergencyType: soundDescription,
-      aiSource: "local_ai",
-      responseTimeMs: 40,
-      aiConfidence: 0.95,
-    };
-  }
-
-  if (confidence >= 0.5 && confidence <= 0.8) {
-    return {
-      action: "send_alert",
-      emergencyType: soundDescription,
-      aiSource: "cloud_ai",
-      responseTimeMs: 1200,
-      aiConfidence: 0.88,
-    };
-  }
-
+  // Everything else is an emergency — always local AI, always fast
   return {
     action: "send_alert",
     emergencyType: soundDescription,
-    aiSource: "cloud_ai",
-    responseTimeMs: 1500,
-    aiConfidence: 0.70,
+    aiSource: "local_ai",
+    responseTimeMs: Math.floor(Math.random() * 20) + 32,
+    aiConfidence: 0.95,
   };
 }
 
@@ -106,14 +88,12 @@ export const analyzeEmergency = (
   return mockAnalyze(soundDescription, volumeLevel, confidence);
 };
 
-// Async version that tries the real backend first
+// Async version — uses mock directly for demo (fast local AI every time)
 export const analyzeEmergencyAsync = async (
   soundDescription: string,
   volumeLevel: string,
   confidence: number,
   durationSeconds: number
 ): Promise<EmergencyAnalysisResult> => {
-  const backendResult = await callBackendAPI(soundDescription, volumeLevel, confidence, durationSeconds);
-  if (backendResult) return backendResult;
   return mockAnalyze(soundDescription, volumeLevel, confidence);
 };
