@@ -1,6 +1,8 @@
 // Hybrid AI Service — calls real Flask backend, falls back to mock if server is down
 
-const API_BASE = "http://localhost:5001";
+const API_BASE = window.location.hostname === 'localhost'
+  ? 'http://localhost:5050'
+  : `http://${window.location.hostname}:5050`;
 
 export interface EmergencyAnalysisResult {
   action: "send_alert" | "log_only";

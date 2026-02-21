@@ -115,12 +115,18 @@ def analyze_sound():
                 if call.get("name") == "send_emergency_alert":
                     action = "send_alert"
 
-            # If classified as critical/warning or is known emergency, send alert
-            if alert_level in ("critical", "warning") or action == "send_alert":
+            # If classified as critical/warning/high or is known emergency, send alert
+            if alert_level in ("critical", "warning", "high") or action == "send_alert":
                 action = "send_alert"
             elif sound_description.lower().replace(" ", "_") in EMERGENCY_SOUNDS:
                 action = "send_alert"
                 alert_level = "critical" if confidence > 0.7 else "warning"
+
+            # If AI made any function calls for a known emergency sound, always alert
+            if function_calls and any(kw in sound_description.lower() for kw in ["alarm", "fire", "smoke", "glass", "scream", "siren"]):
+                action = "send_alert"
+                if alert_level == "info":
+                    alert_level = "warning"
 
             return jsonify({
                 "status": "success",
@@ -218,6 +224,6 @@ if __name__ == "__main__":
     print("=" * 55)
     print("  Guardian Alert - Hybrid AI Emergency Detection Server")
     print(f"  AI Engine: {'ONLINE (FunctionGemma + Gemini)' if AI_AVAILABLE else 'MOCK MODE'}")
-    print(f"  Endpoint:  http://localhost:5001/api/analyze")
+    print(f"  Endpoint:  http://localhost:5050/api/analyze")
     print("=" * 55)
-    app.run(host="0.0.0.0", port=5001, debug=False)
+    app.run(host="0.0.0.0", port=5050, debug=False)
