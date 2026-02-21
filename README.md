@@ -188,7 +188,7 @@ Query → FunctionGemma (on-device, ~40ms)
 ### Backend (AI Server)
 
 ```bash
-cd guardian-alert-submission
+cd guardian-alert-hybrid-ai
 pip install -r requirements.txt
 export GEMINI_API_KEY="your-api-key"
 python server.py
