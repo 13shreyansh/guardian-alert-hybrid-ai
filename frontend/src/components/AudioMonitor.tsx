@@ -2,7 +2,7 @@ import { useEffect, useState, forwardRef, useImperativeHandle, useRef, useCallba
 import { Mic, MicOff, AlertCircle, Flame, Shield, Brain, Loader2, Clock } from "lucide-react";
 import { useAIAlarmDetection, AIClassificationResult, AIDetectionStatus } from "@/hooks/useAIAlarmDetection";
 import { toast } from "@/hooks/use-toast";
-import { analyzeEmergency, type EmergencyAnalysisResult } from "@/services/hybridAIService";
+import { analyzeEmergencyAsync, type EmergencyAnalysisResult } from "@/services/hybridAIService";
 
 interface AudioMonitorProps {
   onAIClassification?: (result: AIClassificationResult, status: AIDetectionStatus) => void;
@@ -172,17 +172,17 @@ const AudioMonitor = forwardRef<AudioMonitorHandle, AudioMonitorProps>(({
       
       // Check if threshold reached
       if (detectionCountRef.current >= CONFIRMATION_THRESHOLD) {
-        // Run hybrid AI analysis before deciding action
+        // Run hybrid AI analysis before deciding action (async — calls real backend)
         const volumeLevel = confidence > 0.7 ? "high" : confidence > 0.4 ? "medium" : "low";
-        const aiDecision = analyzeEmergency(detectedCategory, volumeLevel, confidence, CONFIRMATION_THRESHOLD);
-        
-        if (aiDecision.action === "send_alert") {
-          // AI confirms this is a real emergency
-          onFireAlarmConfirmedRef.current?.(aiDecision);
-        } else {
-          // AI filtered this as a false alarm
-          onFalseAlarmFilteredRef.current?.(aiDecision, detectedCategory);
-        }
+        analyzeEmergencyAsync(detectedCategory, volumeLevel, confidence, CONFIRMATION_THRESHOLD).then((aiDecision) => {
+          if (aiDecision.action === "send_alert") {
+            // AI confirms this is a real emergency
+            onFireAlarmConfirmedRef.current?.(aiDecision);
+          } else {
+            // AI filtered this as a false alarm
+            onFalseAlarmFilteredRef.current?.(aiDecision, detectedCategory);
+          }
+        });
         
         // Reset detection counters
         detectionCountRef.current = 0;
