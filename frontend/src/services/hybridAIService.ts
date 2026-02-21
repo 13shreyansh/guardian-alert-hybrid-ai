@@ -88,12 +88,14 @@ export const analyzeEmergency = (
   return mockAnalyze(soundDescription, volumeLevel, confidence);
 };
 
-// Async version — uses mock directly for demo (fast local AI every time)
+// Async version that tries the real backend first
 export const analyzeEmergencyAsync = async (
   soundDescription: string,
   volumeLevel: string,
   confidence: number,
   durationSeconds: number
 ): Promise<EmergencyAnalysisResult> => {
+  const backendResult = await callBackendAPI(soundDescription, volumeLevel, confidence, durationSeconds);
+  if (backendResult) return backendResult;
   return mockAnalyze(soundDescription, volumeLevel, confidence);
 };

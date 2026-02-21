@@ -2,7 +2,7 @@
 
 > *Because everyone deserves to hear the alarm.*
 
-[![Live App](https://img.shields.io/badge/🌐_Live_Demo-APP-0066FF?style=for-the-badge)](https://guardiansalert.lovable.app)
+[![Live App](https://img.shields.io/badge/🌐_Live_Demo-APP-0066FF?style=for-the-badge)](http://localhost:8080)
 [![Pitch Video](https://img.shields.io/badge/▶️_Watch_Pitch-YouTube-FF0000?style=for-the-badge)](https://www.youtube.com/playlist?list=PLRjIbTD2eeN5t_PZH_3GQrsMUdV6jLJw4)
 
 ---
@@ -73,17 +73,13 @@ We built Guardian Alert with production-grade tools and accessibility-first desi
 
 ## What Makes It Different
 
-**Most accessibility apps are reactive.** They help you navigate a website or read a document *after* you've already encountered a barrier.
-
-**Guardian Alert is proactive.** It doesn't wait for you to ask for help. It doesn't require you to remember to check an app. It monitors your environment constantly and acts the instant danger appears—before you even know there's a problem.
-
-**It's not a screen reader. It's not a form filler. It's a guardian.**
+**It's not a screen reader. It's not a form filler. It's a guardian.** It monitors your environment constantly and acts the instant danger appears—before you even know there's a problem.
 
 ---
 
 ## Try It Yourself
 
-**[→ Launch Guardian Alert](https://guardiansalert.lovable.app)**
+**[→ Launch Guardian Alert](http://localhost:8080)**
 
 1. Complete the 60-second onboarding (select your accessibility needs)
 2. Grant microphone and notification permissions
@@ -114,7 +110,7 @@ We believe technology should serve everyone, not just those who fit the "default
 
 ---
 
-**[Live Demo](https://guardiansalert.lovable.app)** • **[Pitch Video](https://www.youtube.com/playlist?list=PLRjIbTD2eeN5t_PZH_3GQrsMUdV6jLJw4)** • **[GitHub](https://github.com/Yash-PoPularPlusPlus/guardiansalert)**
+**[Live Demo](http://localhost:8080)** • **[Pitch Video](https://www.youtube.com/playlist?list=PLRjIbTD2eeN5t_PZH_3GQrsMUdV6jLJw4)** • **[GitHub](https://github.com/13shreyansh/guardian-alert-hybrid-ai)**
 
 ---
 

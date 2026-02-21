@@ -179,7 +179,7 @@ Query → FunctionGemma (on-device, ~40ms)
 
 - Python 3.10+
 - Node.js 18+
-- [Cactus Compute](https://github.com/nicholasgasior/cactus) engine installed separately (provides on-device FunctionGemma inference)
+- [Cactus Compute](https://github.com/cactus-compute/cactus) engine installed separately (provides on-device FunctionGemma inference)
 - FunctionGemma-270M-IT model weights (downloaded via Cactus CLI)
 - Gemini API key (for cloud fallback only)
 
