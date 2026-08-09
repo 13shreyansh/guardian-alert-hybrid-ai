@@ -26,7 +26,7 @@
   </a>
 </p>
 
-<p align="center"><em>Watch our YouTube video here — live demonstration of Guardian Alert detecting fire alarms and alerting caregivers in real time.</em></p>
+<p align="center"><em>Watch the YouTube video here — a live demonstration of Guardian Alert detecting fire alarms and alerting caregivers in real time.</em></p>
 
 ---
 
@@ -38,9 +38,9 @@
 
 **1.3 billion people** worldwide live with a disability. Fire alarms, sirens, and emergency announcements are designed for people who can hear, see, and move freely. For everyone else, these life-saving systems are **silent**.
 
-**This is personal.** My teammate Krishiv's grandmother lives alone. She's hard of hearing. A fire alarm went off in her building — she didn't hear it. A neighbor found her just in time.
-
-**Not everyone is that lucky.**
+The motivation is simple: emergency systems should not assume that everyone can
+hear, see, and respond in the same way. A warning only protects someone if it
+reaches them in a form they can perceive and act on.
 
 ---
 
@@ -59,7 +59,7 @@ For someone who is deaf and alone in a burning building, a 15-second cloud API r
 | **Offline** | Works without internet ✅ | Requires connectivity ❌ |
 | **Cost** | Free inference | API costs per call |
 
-We run Google's **FunctionGemma-270M-IT** directly on-device via **Cactus Compute**. Sub-50ms decisions. Complete privacy. Works offline. **Lives saved.**
+Guardian Alert runs Google's **FunctionGemma-270M-IT** directly on-device via **Cactus Compute**. Sub-50ms decisions. Complete privacy. Works offline.
 
 ---
 
@@ -120,7 +120,7 @@ We run Google's **FunctionGemma-270M-IT** directly on-device via **Cactus Comput
 
 ## ⚙️ How the Hybrid Routing Works
 
-Our hybrid AI architecture maximizes on-device processing while maintaining accuracy:
+The hybrid AI architecture maximizes on-device processing while maintaining accuracy:
 
 ```
 Query → FunctionGemma (on-device, ~40ms)
@@ -137,7 +137,7 @@ Query → FunctionGemma (on-device, ~40ms)
 ```
 
 1. **FunctionGemma First** — Every query hits the on-device model via Cactus Compute
-2. **JSON Repair** — Malformed model output? We salvage the tool selection and rebuild valid JSON
+2. **JSON Repair** — Malformed model output? Guardian Alert salvages the tool selection and rebuilds valid JSON
 3. **Smart Retries** — Focused tool presentation + rephrased prompts maximize local success
 4. **Post-Processing** — Type coercion, argument extraction, and schema validation
 5. **Cloud Fallback** — Gemini 2.0 Flash, only when the local model genuinely cannot handle it
@@ -215,16 +215,13 @@ curl -X POST http://localhost:5050/api/analyze \
 
 ---
 
-## 👥 Team
+## 👤 Creator
 
 <table>
   <tr>
-    <td align="center"><strong>Shreyansh Agarwal</strong><br/>Hybrid AI Architecture<br/><em>On-device/cloud routing, JSON repair,<br/>FunctionGemma optimization, benchmark tuning</em></td>
-    <td align="center"><strong>Krishiv Kapur</strong><br/>App Development & UX<br/><em>React frontend, accessibility features,<br/>YAMNet integration, alert system</em></td>
+    <td align="center"><strong>Shreyansh Agarwal</strong><br/>Sole Creator<br/><em>Product concept, hybrid AI architecture, on-device/cloud routing,<br/>JSON repair, FunctionGemma optimization, benchmark tuning,<br/>React frontend, accessibility experience, YAMNet integration,<br/>backend API, alert system, testing and documentation</em></td>
   </tr>
 </table>
-
-<p align="center"><strong>Team Name:</strong> The CS Guys</p>
 
 ---
 
